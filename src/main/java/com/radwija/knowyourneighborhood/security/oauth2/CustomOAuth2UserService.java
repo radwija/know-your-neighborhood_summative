@@ -1,5 +1,6 @@
 package com.radwija.knowyourneighborhood.security.oauth2;
 
+import com.radwija.knowyourneighborhood.config.SecurityConfig;
 import com.radwija.knowyourneighborhood.exception.OAuth2AuthenticationProcessingException;
 import com.radwija.knowyourneighborhood.model.AuthProvider;
 import com.radwija.knowyourneighborhood.model.User;
@@ -69,6 +70,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setProviderId(oAuth2UserInfo.getId());
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
+        user.setRole(SecurityConfig.USER);
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(user);
     }

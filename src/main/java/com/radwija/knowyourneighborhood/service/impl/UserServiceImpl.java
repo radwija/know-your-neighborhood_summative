@@ -2,6 +2,7 @@ package com.radwija.knowyourneighborhood.service.impl;
 
 import com.radwija.knowyourneighborhood.config.SecurityConfig;
 import com.radwija.knowyourneighborhood.exception.BadRequestException;
+import com.radwija.knowyourneighborhood.exception.UserNotFoundException;
 import com.radwija.knowyourneighborhood.model.AuthProvider;
 import com.radwija.knowyourneighborhood.model.User;
 import com.radwija.knowyourneighborhood.payload.SignUpRequest;
@@ -10,6 +11,8 @@ import com.radwija.knowyourneighborhood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,5 +39,18 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+
+    @Override
+    public List<User> showAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        if(!userRepository.existsById(id)) {
+            throw new UserNotFoundException(id);
+        }
+        userRepository.deleteById(id);
     }
 }
