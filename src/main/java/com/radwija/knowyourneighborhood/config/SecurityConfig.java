@@ -133,6 +133,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    public static String ADMIN = "ADMIN";
-    public static String USER = "USER";
+    public static String ADMIN = "ROLE_ADMIN";
+    public static String USER = "ROLE_USER";
 }
