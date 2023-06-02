@@ -109,6 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .antMatchers("/login/**", "/register/**")
                 .permitAll()
+                    .antMatchers("/admin/**").hasAnyAuthority(ADMIN)
                     .antMatchers("/auth/**", "/oauth2/**")
                         .permitAll()
                     .anyRequest()
@@ -131,4 +132,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
+    public static String ADMIN = "ADMIN";
+    public static String USER = "USER";
 }

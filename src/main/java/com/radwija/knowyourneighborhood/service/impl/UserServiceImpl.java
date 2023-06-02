@@ -1,5 +1,6 @@
 package com.radwija.knowyourneighborhood.service.impl;
 
+import com.radwija.knowyourneighborhood.config.SecurityConfig;
 import com.radwija.knowyourneighborhood.exception.BadRequestException;
 import com.radwija.knowyourneighborhood.model.AuthProvider;
 import com.radwija.knowyourneighborhood.model.User;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(signUpRequest.getUsername());
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(signUpRequest.getPassword());
+        user.setRole(SecurityConfig.USER);
         user.setProvider(AuthProvider.local);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
