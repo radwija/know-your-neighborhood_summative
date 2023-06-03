@@ -7,6 +7,7 @@ import com.radwija.knowyourneighborhood.model.AuthProvider;
 import com.radwija.knowyourneighborhood.model.User;
 import com.radwija.knowyourneighborhood.payload.SignUpRequest;
 import com.radwija.knowyourneighborhood.repository.UserRepository;
+import com.radwija.knowyourneighborhood.security.UserPrincipal;
 import com.radwija.knowyourneighborhood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,6 +40,17 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+
+    @Override
+    public User updateUser(UserPrincipal userPrincipal, User updatedUser) {
+        return userRepository.findById(userPrincipal.getId())
+                .map(user -> {
+                    user.setName(updatedUser.getName());
+                    user.setUsername(updatedUser.getUsername());
+                    user.setEmail(updatedUser.getEmail());
+                    return userRepository.save(user);
+                }).orElseThrow(()-> new UserNotFoundException(userPrincipal.getId())) ;
     }
 
     @Override
