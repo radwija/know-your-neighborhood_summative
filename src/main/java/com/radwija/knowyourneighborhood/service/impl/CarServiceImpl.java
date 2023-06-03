@@ -1,5 +1,6 @@
 package com.radwija.knowyourneighborhood.service.impl;
 
+import com.radwija.knowyourneighborhood.exception.CarNotFoundException;
 import com.radwija.knowyourneighborhood.model.Car;
 import com.radwija.knowyourneighborhood.model.User;
 import com.radwija.knowyourneighborhood.repository.CarRepository;
@@ -7,6 +8,7 @@ import com.radwija.knowyourneighborhood.repository.UserRepository;
 import com.radwija.knowyourneighborhood.security.UserPrincipal;
 import com.radwija.knowyourneighborhood.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,35 @@ public class CarServiceImpl implements CarService {
         } else {
             return null;
         }
+    }
+
+    private Car updateCar(Long id, Car updatedCar) {
+        return carRepository.findById(id)
+                .map(car -> {
+                            car.setCarName(updatedCar.getCarName());
+                            car.setModel(updatedCar.getModel());
+                            car.setMakeYear(updatedCar.getMakeYear());
+                            car.setPrice(updatedCar.getPrice());
+                            return carRepository.save(car);
+                        }
+                ).orElseThrow(() -> new CarNotFoundException(updatedCar.getId()));
+    }
+
+    @Override
+    public ResponseEntity<Car> updateOwnCar(Long id, Car updatedCar, UserPrincipal userPrincipal) {
+        Long carOwner = carRepository.findById(id).get().getUser().getId();
+
+        if (carOwner != null) {
+            if (userPrincipal.getId().equals(carOwner)) {
+                return ResponseEntity.ok(updateCar(id, updatedCar));
+            }
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @Override
+    public Car updateUserCar(Long id, Car updatedCar) {
+        return updateCar(id, updatedCar);
     }
 
     @Override
