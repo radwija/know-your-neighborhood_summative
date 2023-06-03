@@ -26,6 +26,11 @@ public class AdminController {
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return "User with id "+id+" has been deleted successfully!";
+        return "User with id " + id + " has been deleted successfully!";
+    }
+
+    @PutMapping("/update-user/{id}")
+    public User updateUserProfile(@PathVariable Long id, @RequestBody User updatedUser) {
+        return userService.updateUserProfile(id, updatedUser);
     }
 }

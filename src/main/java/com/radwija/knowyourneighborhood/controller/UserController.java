@@ -31,6 +31,6 @@ public class UserController {
 
     @PutMapping("/update")
     public User updateProfile(@AuthenticationPrincipal UserPrincipal userPrincipal, @RequestBody User user) {
-        return userService.updateUser(userPrincipal, user);
+        return userService.updateOwnProfile(userPrincipal, user);
     }
 }

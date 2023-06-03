@@ -42,15 +42,26 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
-    public User updateUser(UserPrincipal userPrincipal, User updatedUser) {
-        return userRepository.findById(userPrincipal.getId())
+
+    private User updateProfile(Long id, User updatedUser) {
+        return userRepository.findById(id)
                 .map(user -> {
                     user.setName(updatedUser.getName());
                     user.setUsername(updatedUser.getUsername());
                     user.setEmail(updatedUser.getEmail());
                     return userRepository.save(user);
-                }).orElseThrow(()-> new UserNotFoundException(userPrincipal.getId())) ;
+                }).orElseThrow(()-> new UserNotFoundException(id));
+    }
+    @Override
+    public User updateOwnProfile(UserPrincipal userPrincipal, User updatedUser) {
+        System.out.println("email: " + updatedUser.getEmail());
+        return updateProfile(userPrincipal.getId(), updatedUser);
+    }
+
+    @Override
+    public User updateUserProfile(Long id, User updatedUser) {
+        System.out.println("email: " + updatedUser.getEmail());
+        return updateProfile(id, updatedUser);
     }
 
     @Override

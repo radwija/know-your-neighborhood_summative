@@ -11,7 +11,9 @@ import java.util.List;
 public interface UserService {
     User saveUser(SignUpRequest signUpRequest);
 
-    User updateUser(UserPrincipal userPrincipal, User user);
+    User updateOwnProfile(UserPrincipal userPrincipal, User user);
+
+    User updateUserProfile(Long id, User user);
 
     List<User> showAllUsers();
 
