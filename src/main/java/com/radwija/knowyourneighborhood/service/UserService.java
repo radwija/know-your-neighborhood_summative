@@ -6,10 +6,15 @@ import com.radwija.knowyourneighborhood.security.UserPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface UserService {
     User saveUser(SignUpRequest signUpRequest);
+
+    Boolean userExists(Long id);
+
+    Optional<User> viewUserDetail(Long id);
 
     User updateOwnProfile(UserPrincipal userPrincipal, User user);
 

@@ -14,6 +14,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -34,9 +36,21 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 
+    @GetMapping("/details/{id}")
+    public ResponseEntity<Optional<User>> viewUserDetail(@PathVariable Long id) {
+        if (userService.userExists(id)) {
+            return ResponseEntity.ok(userService.viewUserDetail(id));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PutMapping("/update")
-    public User updateProfile(@AuthenticationPrincipal UserPrincipal userPrincipal, @RequestBody User user) {
-        return userService.updateOwnProfile(userPrincipal, user);
+    public ResponseEntity<User> updateProfile(@AuthenticationPrincipal UserPrincipal userPrincipal, @RequestBody User user) {
+        User updatedUserRequest = userService.updateOwnProfile(userPrincipal, user);
+        if (updatedUserRequest != null) {
+            return ResponseEntity.ok(updatedUserRequest);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/update-car/{id}")

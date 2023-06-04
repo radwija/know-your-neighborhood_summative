@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,10 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(SignUpRequest signUpRequest) {
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             throw new BadRequestException("Email address already in use.");
-        }
-        else if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+        } else if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             throw new BadRequestException("Username address already in use.");
         }
         User user = new User();
@@ -42,26 +42,42 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public Boolean userExists(Long id) {
+        return userRepository.existsById(id);
+    }
 
-    private User updateProfile(Long id, User updatedUser) {
+    @Override
+    public Optional<User> viewUserDetail(Long id) {
+        return userRepository.findById(id);
+    }
+
+    private User updateProfile(Long id, User updatedUserRequest) {
+        if (userRepository.existsByEmailAndIdNot(updatedUserRequest.getEmail(), id)) {
+            return null;
+        }
+        if (userRepository.existsByUsernameAndIdNot(updatedUserRequest.getUsername(), id)) {
+            return null;
+        }
+
         return userRepository.findById(id)
                 .map(user -> {
-                    user.setName(updatedUser.getName());
-                    user.setUsername(updatedUser.getUsername());
-                    user.setEmail(updatedUser.getEmail());
+                    user.setName(updatedUserRequest.getName());
+                    user.setUsername(updatedUserRequest.getUsername());
+                    user.setEmail(updatedUserRequest.getEmail());
                     return userRepository.save(user);
-                }).orElseThrow(()-> new UserNotFoundException(id));
-    }
-    @Override
-    public User updateOwnProfile(UserPrincipal userPrincipal, User updatedUser) {
-        System.out.println("email: " + updatedUser.getEmail());
-        return updateProfile(userPrincipal.getId(), updatedUser);
+                }).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Override
-    public User updateUserProfile(Long id, User updatedUser) {
-        System.out.println("email: " + updatedUser.getEmail());
-        return updateProfile(id, updatedUser);
+    public User updateOwnProfile(UserPrincipal userPrincipal, User updatedUserRequest) {
+        return updateProfile(userPrincipal.getId(), updatedUserRequest);
+    }
+
+    @Override
+    public User updateUserProfile(Long id, User updatedUserRequest) {
+        System.out.println("email: " + updatedUserRequest.getEmail());
+        return updateProfile(id, updatedUserRequest);
     }
 
     @Override
@@ -71,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        if(!userRepository.existsById(id)) {
+        if (!userRepository.existsById(id)) {
             throw new UserNotFoundException(id);
         }
         userRepository.deleteById(id);

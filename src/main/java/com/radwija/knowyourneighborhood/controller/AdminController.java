@@ -4,7 +4,9 @@ import com.radwija.knowyourneighborhood.model.Car;
 import com.radwija.knowyourneighborhood.model.User;
 import com.radwija.knowyourneighborhood.service.CarService;
 import com.radwija.knowyourneighborhood.service.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,8 +37,12 @@ public class AdminController {
     }
 
     @PutMapping("/update-user/{id}")
-    public User updateUserProfile(@PathVariable Long id, @RequestBody User updatedUser) {
-        return userService.updateUserProfile(id, updatedUser);
+    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User updatedUser) {
+        User updatedUserRequest = userService.updateUserProfile(id, updatedUser);
+        if (updatedUserRequest != null) {
+            return ResponseEntity.ok(updatedUserRequest);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/update-car/{id}")
