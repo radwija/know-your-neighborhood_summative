@@ -65,6 +65,9 @@ public class UserServiceImpl implements UserService {
                     user.setName(updatedUserRequest.getName());
                     user.setUsername(updatedUserRequest.getUsername());
                     user.setEmail(updatedUserRequest.getEmail());
+                    user.setMobile(updatedUserRequest.getMobile());
+                    user.setCity(updatedUserRequest.getCity());
+                    user.setCountry(updatedUserRequest.getCountry());
                     return userRepository.save(user);
                 }).orElseThrow(() -> new UserNotFoundException(id));
     }
