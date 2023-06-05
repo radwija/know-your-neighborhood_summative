@@ -1,10 +1,9 @@
 package com.radwija.knowyourneighborhood.controller;
 
-import com.radwija.knowyourneighborhood.model.Car;
+import com.radwija.knowyourneighborhood.model.Store;
 import com.radwija.knowyourneighborhood.model.User;
-import com.radwija.knowyourneighborhood.service.CarService;
+import com.radwija.knowyourneighborhood.service.StoreService;
 import com.radwija.knowyourneighborhood.service.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ public class AdminController {
     UserService userService;
 
     @Autowired
-    CarService carService;
+    StoreService storeService;
 
     @GetMapping("/test")
     public String checkAdminRole() {
@@ -33,12 +32,12 @@ public class AdminController {
     @DeleteMapping("/delete-user/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return "Car with id " + id + " has been deleted successfully!";
+        return "Store with id " + id + " has been deleted successfully!";
     }
 
-    @DeleteMapping("/delete-car/{id}")
-    public String deleteCar(@PathVariable Long id) {
-        carService.deleteCar(id);
+    @DeleteMapping("/delete-store/{id}")
+    public String deleteStore(@PathVariable Long id) {
+        storeService.deleteStore(id);
         return "User with id " + id + " has been deleted successfully!";
     }
 
@@ -51,8 +50,8 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
 
-    @PutMapping("/update-car/{id}")
-    public Car updateUserCar(@PathVariable Long id, @RequestBody Car updatedCar) {
-        return carService.updateUserCar(id, updatedCar);
+    @PutMapping("/update-store/{id}")
+    public Store updateUserStore(@PathVariable Long id, @RequestBody Store updatedStore) {
+        return storeService.updateUserStore(id, updatedStore);
     }
 }

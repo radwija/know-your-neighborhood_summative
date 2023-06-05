@@ -47,7 +47,7 @@ public class User {
     private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Car> cars = new ArrayList<>();
+    private List<Store> stores = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -145,11 +145,11 @@ public class User {
         this.role = role;
     }
 
-    public List<Car> getCars() {
-        return cars;
+    public List<Store> getStores() {
+        return stores;
     }
 
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
     }
 }

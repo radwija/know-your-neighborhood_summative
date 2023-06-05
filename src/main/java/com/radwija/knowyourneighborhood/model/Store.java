@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-public class Car {
+public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String carName;
+    private String storeName;
     private String model;
     private Integer makeYear;
     private Long price;
@@ -28,12 +28,12 @@ public class Car {
         this.id = id;
     }
 
-    public String getCarName() {
-        return carName;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setCarName(String carName) {
-        this.carName = carName;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getModel() {

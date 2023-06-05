@@ -1,12 +1,12 @@
 package com.radwija.knowyourneighborhood.controller;
 
 import com.radwija.knowyourneighborhood.exception.ResourceNotFoundException;
-import com.radwija.knowyourneighborhood.model.Car;
+import com.radwija.knowyourneighborhood.model.Store;
 import com.radwija.knowyourneighborhood.model.User;
 import com.radwija.knowyourneighborhood.repository.UserRepository;
 import com.radwija.knowyourneighborhood.security.CurrentUser;
 import com.radwija.knowyourneighborhood.security.UserPrincipal;
-import com.radwija.knowyourneighborhood.service.CarService;
+import com.radwija.knowyourneighborhood.service.StoreService;
 import com.radwija.knowyourneighborhood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    private CarService carService;
+    private StoreService storeService;
 
     @Autowired
     private UserService userService;
@@ -53,10 +53,10 @@ public class UserController {
         return ResponseEntity.badRequest().build();
     }
 
-    @PutMapping("/update-car/{id}")
-    public ResponseEntity<Car> updateOwnCar(@PathVariable Long id, @RequestBody Car updatedCar, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        System.out.println("controller/update-car/{" + id + "}");
+    @PutMapping("/update-store/{id}")
+    public ResponseEntity<Store> updateOwnStore(@PathVariable Long id, @RequestBody Store updatedStore, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        System.out.println("controller/update-store/{" + id + "}");
         System.out.println("owner: " + userPrincipal.getId());
-        return carService.updateOwnCar(id, updatedCar, userPrincipal);
+        return storeService.updateOwnStore(id, updatedStore, userPrincipal);
     }
 }
