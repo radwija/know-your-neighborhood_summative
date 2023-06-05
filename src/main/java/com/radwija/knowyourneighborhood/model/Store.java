@@ -12,9 +12,9 @@ public class Store {
     private Long id;
 
     private String storeName;
-    private String model;
-    private Integer makeYear;
-    private Long price;
+    private String city;
+    private String country;
+    private String phone;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -36,28 +36,28 @@ public class Store {
         this.storeName = storeName;
     }
 
-    public String getModel() {
-        return model;
+    public String getCity() {
+        return city;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public int getMakeYear() {
-        return makeYear;
+    public String getCountry() {
+        return country;
     }
 
-    public void setMakeYear(int makeYear) {
-        this.makeYear = makeYear;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public Long getPrice() {
-        return price;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public User getUser() {

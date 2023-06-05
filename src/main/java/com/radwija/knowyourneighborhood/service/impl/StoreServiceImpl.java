@@ -24,34 +24,34 @@ public class StoreServiceImpl implements StoreService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public List<Store> searchStore(String by, String keyword, Integer year, Long min, Long max) {
-        if (by.equalsIgnoreCase("storeName")) {
-            return storeRepository.searchStoreByName(keyword);
-        } else if (by.equalsIgnoreCase("makeYear")) {
-            return storeRepository.searchStoreByMakeYear(year);
-        } else if (by.equalsIgnoreCase("model")) {
-            return storeRepository.searchStoreByModel(keyword);
-        } else if (by.equalsIgnoreCase("price")) {
-            if (min != null && max == null) {
-                return storeRepository.searchStoreByMinPrice(min);
-            } else if (min == null && max != null) {
-                return storeRepository.searchStoreByMaxPrice(max);
-            } else {
-                return storeRepository.searchStoreByRangePrice(min, max);
-            }
-        } else {
-            return null;
-        }
-    }
+//    @Override
+//    public List<Store> searchStore(String by, String keyword, Integer year, Long min, Long max) {
+//        if (by.equalsIgnoreCase("storeName")) {
+//            return storeRepository.searchStoreByName(keyword);
+//        } else if (by.equalsIgnoreCase("makeYear")) {
+//            return storeRepository.searchStoreByMakeYear(year);
+//        } else if (by.equalsIgnoreCase("model")) {
+//            return storeRepository.searchStoreByModel(keyword);
+//        } else if (by.equalsIgnoreCase("price")) {
+//            if (min != null && max == null) {
+//                return storeRepository.searchStoreByMinPrice(min);
+//            } else if (min == null && max != null) {
+//                return storeRepository.searchStoreByMaxPrice(max);
+//            } else {
+//                return storeRepository.searchStoreByRangePrice(min, max);
+//            }
+//        } else {
+//            return null;
+//        }
+//    }
 
     private Store updateStore(Long id, Store updatedStore) {
         return storeRepository.findById(id)
                 .map(store -> {
                             store.setStoreName(updatedStore.getStoreName());
-                            store.setModel(updatedStore.getModel());
-                            store.setMakeYear(updatedStore.getMakeYear());
-                            store.setPrice(updatedStore.getPrice());
+                            store.setCity(updatedStore.getCity());
+                            store.setCountry(updatedStore.getCountry());
+                            store.setPhone(updatedStore.getPhone());
                             return storeRepository.save(store);
                         }
                 ).orElseThrow(() -> new StoreNotFoundException(updatedStore.getId()));

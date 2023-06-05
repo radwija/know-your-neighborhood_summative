@@ -15,7 +15,7 @@ public interface StoreService {
     ResponseEntity<Store> updateOwnStore(Long id, Store updatedStore, UserPrincipal userPrincipal);
     Store updateUserStore(Long id, Store updatedStore);
 
-    List<Store> searchStore(String by, String keyword, Integer year, Long min, Long max);
+//    List<Store> searchStore(String by, String keyword, Integer year, Long min, Long max);
 
     Optional<Store> viewStoreDetail(Long cId);
 

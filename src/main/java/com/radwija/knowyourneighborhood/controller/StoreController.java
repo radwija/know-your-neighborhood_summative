@@ -35,17 +35,17 @@ public class StoreController {
         return storeService.showAllStores();
     }
 
-    @GetMapping("search")
-    public List<Store> searchStores(@RequestParam("by") String by,
-                                  @RequestParam(value = "keyword", required = false) String keyword,
-                                  @RequestParam(value = "year", required = false) Integer year,
-                                  @RequestParam(value = "min", required = false) Long min,
-                                  @RequestParam(value = "max", required = false) Long max) {
-        List<Store> searchedStores = storeService.searchStore(by, keyword, year, min, max);
-
-        System.out.println(searchedStores);
-        return searchedStores;
-    }
+//    @GetMapping("search")
+//    public List<Store> searchStores(@RequestParam("by") String by,
+//                                  @RequestParam(value = "keyword", required = false) String keyword,
+//                                  @RequestParam(value = "year", required = false) Integer year,
+//                                  @RequestParam(value = "min", required = false) Long min,
+//                                  @RequestParam(value = "max", required = false) Long max) {
+//        List<Store> searchedStores = storeService.searchStore(by, keyword, year, min, max);
+//
+//        System.out.println(searchedStores);
+//        return searchedStores;
+//    }
 
     @GetMapping("viewStore")
     public ResponseEntity<Store> storeDetail(@RequestParam Long cid) {

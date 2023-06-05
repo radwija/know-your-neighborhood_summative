@@ -38,7 +38,7 @@ public class User {
 
     private String providerId;
 
-    private String mobile;
+    private String phone;
 
     private String city;
 
@@ -113,12 +113,12 @@ public class User {
         this.providerId = providerId;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getCity() {
