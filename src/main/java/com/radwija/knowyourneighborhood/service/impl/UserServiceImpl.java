@@ -4,6 +4,7 @@ import com.radwija.knowyourneighborhood.config.SecurityConfig;
 import com.radwija.knowyourneighborhood.exception.BadRequestException;
 import com.radwija.knowyourneighborhood.exception.UserNotFoundException;
 import com.radwija.knowyourneighborhood.model.AuthProvider;
+import com.radwija.knowyourneighborhood.model.Store;
 import com.radwija.knowyourneighborhood.model.User;
 import com.radwija.knowyourneighborhood.payload.SignUpRequest;
 import com.radwija.knowyourneighborhood.repository.UserRepository;
@@ -50,6 +51,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> viewUserDetail(Long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public List<User> searchUserByName(String keyword) {
+        return userRepository.searchUserByName(keyword);
     }
 
     private User updateProfile(Long id, User updatedUserRequest) {

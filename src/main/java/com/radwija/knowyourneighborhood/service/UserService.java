@@ -1,5 +1,6 @@
 package com.radwija.knowyourneighborhood.service;
 
+import com.radwija.knowyourneighborhood.model.Store;
 import com.radwija.knowyourneighborhood.model.User;
 import com.radwija.knowyourneighborhood.payload.SignUpRequest;
 import com.radwija.knowyourneighborhood.security.UserPrincipal;
@@ -15,6 +16,8 @@ public interface UserService {
     Boolean userExists(Long id);
 
     Optional<User> viewUserDetail(Long id);
+
+    List<User> searchUserByName(String keyword);
 
     User updateOwnProfile(UserPrincipal userPrincipal, User user);
 
