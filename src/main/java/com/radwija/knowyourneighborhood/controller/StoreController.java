@@ -47,6 +47,11 @@ public class StoreController {
 //        return searchedStores;
 //    }
 
+    @GetMapping("/owner")
+    public List<Store> showStoreByOwner(@RequestParam("uId") Long uId) {
+        return storeService.showStoreByOwner(uId);
+    }
+
     @GetMapping("viewStore")
     public ResponseEntity<Store> storeDetail(@RequestParam Long cid) {
         Optional<Store> storeInfo = storeService.viewStoreDetail(cid);

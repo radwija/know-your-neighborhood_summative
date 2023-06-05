@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface StoreRepository extends JpaRepository<Store, Long> {
+    @Query("SELECT s FROM Store s WHERE s.user.id = :uId")
+    List<Store> getCarsByOwner(@Param("uId") Long uId);
 //    @Query(value = "SELECT c FROM Store c WHERE c.storeName LIKE '%' || :keyword || '%'")
 //    public List<Store> searchStoreByName(@Param("keyword") String keyword);
 //

@@ -80,6 +80,11 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    public List<Store> showStoreByOwner(Long uId) {
+        return storeRepository.getCarsByOwner(uId);
+    }
+
+    @Override
     public Optional<Store> viewStoreDetail(Long cid) {
         return storeRepository.findById(cid);
     }

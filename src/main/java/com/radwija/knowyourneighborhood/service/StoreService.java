@@ -21,5 +21,7 @@ public interface StoreService {
 
     List<Store> showAllStores();
 
+    List<Store> showStoreByOwner(Long uId);
+
     void deleteStore(Long id);
 }
