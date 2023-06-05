@@ -30,9 +30,15 @@ public class AdminController {
         return userService.showAllUsers();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete-user/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
+        return "Car with id " + id + " has been deleted successfully!";
+    }
+
+    @DeleteMapping("/delete-car/{id}")
+    public String deleteCar(@PathVariable Long id) {
+        carService.deleteCar(id);
         return "User with id " + id + " has been deleted successfully!";
     }
 

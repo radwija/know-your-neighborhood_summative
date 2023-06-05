@@ -20,4 +20,6 @@ public interface CarService {
     Optional<Car> viewCarDetail(Long cId);
 
     List<Car> showAllCars();
+
+    void deleteCar(Long id);
 }
