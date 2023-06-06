@@ -1,7 +1,10 @@
 package com.radwija.knowyourneighborhood.controller;
 
+import com.radwija.knowyourneighborhood.model.Contact;
 import com.radwija.knowyourneighborhood.model.Store;
 import com.radwija.knowyourneighborhood.model.User;
+import com.radwija.knowyourneighborhood.repository.ContactRepository;
+import com.radwija.knowyourneighborhood.service.ContactService;
 import com.radwija.knowyourneighborhood.service.StoreService;
 import com.radwija.knowyourneighborhood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,9 @@ public class AdminController {
 
     @Autowired
     StoreService storeService;
+
+    @Autowired
+    private ContactService contactService;
 
     @GetMapping("/test")
     public String checkAdminRole() {
@@ -53,5 +59,16 @@ public class AdminController {
     @PutMapping("/update-store/{id}")
     public Store updateUserStore(@PathVariable Long id, @RequestBody Store updatedStore) {
         return storeService.updateUserStore(id, updatedStore);
+    }
+
+    @GetMapping("/contacts")
+    public List<Contact> showAllContacts() {
+        return contactService.showAllContacts();
+    }
+
+    @DeleteMapping("/delete-contact/{id}")
+    public String deleteContactById(@PathVariable Long id) {
+        contactService.deleteContact(id);
+        return "Contact deleted successfully";
     }
 }

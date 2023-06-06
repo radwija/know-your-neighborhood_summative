@@ -17,6 +17,7 @@ public class Contact {
     @Email
     private String email;
 
+    @Lob
     private String message;
 
     public Long getId() {
