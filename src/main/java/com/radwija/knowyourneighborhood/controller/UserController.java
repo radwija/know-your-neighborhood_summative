@@ -45,7 +45,7 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("search")
+    @GetMapping("/search")
     public List<User> searchUsers(@RequestParam(value = "keyword") String keyword) {
         List<User> searchedUsers = userService.searchUserByName(keyword);
         return searchedUsers;

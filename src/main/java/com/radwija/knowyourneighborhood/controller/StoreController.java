@@ -30,12 +30,12 @@ public class StoreController {
     }
 
 
-    @GetMapping("stores")
+    @GetMapping("/stores")
     public List<Store> showAllStores() {
         return storeService.showAllStores();
     }
 
-    @GetMapping("search")
+    @GetMapping("/search")
     public List<Store> searchStores(@RequestParam(value = "keyword") String keyword) {
         List<Store> searchedStores = storeService.searchStoreByName(keyword);
         return searchedStores;

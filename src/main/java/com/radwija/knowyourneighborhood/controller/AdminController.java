@@ -44,7 +44,7 @@ public class AdminController {
     @DeleteMapping("/delete-store/{id}")
     public String deleteStore(@PathVariable Long id) {
         storeService.deleteStore(id);
-        return "User with id " + id + " has been deleted successfully!";
+        return "Store with id " + id + " has been deleted successfully!";
     }
 
     @PutMapping("/update-user/{id}")
